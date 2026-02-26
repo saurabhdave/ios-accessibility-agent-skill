@@ -22,8 +22,7 @@
     "ai"
   ],
   "scripts": {
-    "lint": "markdownlint '**/*.md'",
-    "test": "swift test"
+    "lint": "markdownlint '**/*.md'"
   },
   "author": "Saurabh Dave"
 }
