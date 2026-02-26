@@ -1,6 +1,9 @@
 ---
 name: ios-accessibility-advisor
-description: Production-grade accessibility guidance for iOS and macOS apps, covering SwiftUI, UIKit, AppKit, WCAG compliance, and enterprise accessibility audits.
+description: Enterprise-grade accessibility advisor for SwiftUI, UIKit, and AppKit apps.
+version: 1.0.0
+author: Saurabh Dave
+license: MIT
 ---
 
 # iOS & macOS Accessibility Best Practices Advisor
