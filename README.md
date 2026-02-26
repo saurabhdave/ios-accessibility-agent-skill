@@ -32,7 +32,7 @@ npx skills add saurabhdave/aiagents --skill apple-accessibility-advisor
 ```
 
 > Once added, invoke the skill by asking your AI agent to review code, recommend
-> improvements, or explain accessibility concepts – see `skills/ios-accessibility-advisor/SKILL.md`
+> improvements, or explain accessibility concepts – see `skills/apple-accessibility-advisor/SKILL.md`
 > for sample prompts.
 
 

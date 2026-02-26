@@ -1,3 +1,4 @@
+```skill
 ---
 name: apple-accessibility-advisor
 description: Enterprise-grade accessibility advisor for SwiftUI, UIKit, AppKit and WatchKit applications.
@@ -142,3 +143,4 @@ Performance, scalability, enterprise readiness.
 - "Accessibility strategy for enterprise dashboard app."
 - "How to integrate accessibility testing into CI/CD pipeline?"
 - "Compare accessibility implementation in SwiftUI vs UIKit."
+```

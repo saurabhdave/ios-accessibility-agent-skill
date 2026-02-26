@@ -1,4 +1,4 @@
-# WCAG Guidelines for iOS/macOS
+# WCAG Guidelines for Apple Platforms
 
 While WCAG originated for web content, its success criteria are broadly applicable to
 native applications. The following summary highlights key points to consider when
