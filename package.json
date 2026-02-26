@@ -1,0 +1,29 @@
+{
+  "name": "aiagents",
+  "version": "1.0.0",
+  "description": "AI-driven skills for Apple platform engineering",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saurabhdave/aiagents.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "apple",
+    "accessibility",
+    "swiftui",
+    "ai-agent",
+    "ios",
+    "ipados",
+    "macos",
+    "watchos",
+    "visionos",
+    "tvos",
+    "ai"
+  ],
+  "scripts": {
+    "lint": "markdownlint '**/*.md'",
+    "test": "swift test"
+  },
+  "author": "Saurabh Dave"
+}

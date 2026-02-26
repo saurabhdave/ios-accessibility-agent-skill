@@ -21,14 +21,14 @@ npm modules and can be plugged into your AI‑powered tooling via `npx skills`.
 
 | Skill | Description |
 |-------|-------------|
-| `ios-accessibility-advisor` | Enterprise‑grade accessibility guidance for SwiftUI, UIKit, and AppKit. |
+| `apple-accessibility-advisor` | Enterprise‑grade accessibility guidance for SwiftUI, UIKit, AppKit, WatchKit, and platform-specific APIs across iOS, iPadOS, macOS, watchOS, visionOS, and tvOS. |
 
 
 ### Installation
 
 ```bash
 # install a specific skill
-npx skills add saurabhdave/aiagents --skill ios-accessibility-advisor
+npx skills add saurabhdave/aiagents --skill apple-accessibility-advisor
 ```
 
 > Once added, invoke the skill by asking your AI agent to review code, recommend

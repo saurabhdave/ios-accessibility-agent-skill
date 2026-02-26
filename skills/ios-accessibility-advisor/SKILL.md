@@ -1,16 +1,18 @@
 ---
-name: ios-accessibility-advisor
-description: Enterprise-grade accessibility advisor for SwiftUI, UIKit, and AppKit apps.
+name: apple-accessibility-advisor
+description: Enterprise-grade accessibility advisor for SwiftUI, UIKit, AppKit and WatchKit applications.
 version: 1.0.0
 author: Saurabh Dave
 license: MIT
 ---
 
-# iOS & macOS Accessibility Best Practices Advisor
+# Apple Platform Accessibility Best Practices Advisor
+
+(Covers iOS, iPadOS, macOS, watchOS, visionOS and tvOS)
 
 ## Purpose
 
-This skill provides structured, production-ready accessibility guidance for Apple platform applications.
+This skill provides structured, production-ready accessibility guidance for Apple platform applications across **iOS, iPadOS, macOS, watchOS, visionOS,** and **tvOS**.
 
 It helps developers:
 
@@ -56,7 +58,11 @@ When analyzing code or architecture:
 
 ## Coverage Areas
 
-### SwiftUI
+### SwiftUI (all platforms)
+
+SwiftUI is the common denominator for every Apple platform. Examples and
+patterns apply to iOS, iPadOS, macOS, watchOS, visionOS and tvOS when using
+`SwiftUI`-based views.
 
 - `.accessibilityLabel`
 - `.accessibilityHint`
@@ -68,13 +74,15 @@ When analyzing code or architecture:
 - Reduce Motion support
 - Custom rotor implementation
 
-### UIKit
+### UIKit / WatchKit / tvOS
 
-- UIAccessibility protocols
+- UIAccessibility protocols (UIKit, WatchKit, tvOS UIKit subset)
 - accessibilityTraits
 - accessibilityElements ordering
 - Custom accessibility actions
 - Accessibility containers
+
+*(For watchOS use WatchKit APIs; for tvOS adapt focus engine and remote control interactions.)*
 
 ### AppKit (macOS)
 
@@ -120,7 +128,7 @@ Performance, scalability, enterprise readiness.
 
 - Avoid overly basic explanations unless requested.
 - Prioritize scalable architectural solutions.
-- Consider both iOS and macOS patterns.
+- Consider patterns across all Apple platforms (iOS/iPadOS/watchOS/visionOS/tvOS/macOS).
 - Encourage accessibility-first design, not retrofitting.
 - Highlight inclusivity and real-world usability impact.
 

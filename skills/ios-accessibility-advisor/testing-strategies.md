@@ -8,9 +8,12 @@ checks, and integration into your development workflow.
 
 ## 1. Manual Validation
 
-### VoiceOver & Switch Control
-- Enable VoiceOver on a physical device and navigate every screen.
-- Verify labels, hints, and custom actions are announced correctly.
+### VoiceOver, Switch Control & Assistive Technologies
+- Enable VoiceOver/VoiceOver for iPad, Zoom, Switch Control, or other relevant
+  assistive technologies on a physical device and navigate every screen.
+- On watchOS test with the Watch’s VoiceOver and on tvOS use the Remote or
+  Siri Remote to verify focus and announcements.
+- Verify labels, hints, and custom actions are announced correctly across platforms.
 - Ensure reading order matches expected UX and that grouped elements make sense.
 
 ### Dynamic Type & Appearance

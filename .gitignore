@@ -1,0 +1,18 @@
+.DS_Store
+# Xcode artifacts
+build/
+DerivedData/
+*.xcuserdatad
+*.xcscmblueprint
+
+# Swift Package Manager
+.build/
+Package.resolved
+
+# Journals, caches
+*.swp
+*.lock
+
+# macOS
+.AppleDouble
+.LSOverride

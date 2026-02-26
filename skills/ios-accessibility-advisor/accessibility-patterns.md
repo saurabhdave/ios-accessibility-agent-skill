@@ -1,9 +1,9 @@
 # Accessibility Architecture Patterns
 
-iOS & macOS Production Accessibility Guidance
+Apple Platform Production Accessibility Guidance (iOS, iPadOS, macOS, watchOS, visionOS, tvOS)
 
 This document defines reusable accessibility implementation patterns for
-SwiftUI, UIKit, and AppKit applications.
+SwiftUI, UIKit (including WatchKit/tvOS variants), and AppKit applications.
 
 These patterns are intended for production-grade, scalable applications
 and enterprise audit readiness.
