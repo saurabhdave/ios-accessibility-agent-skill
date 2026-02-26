@@ -16,7 +16,7 @@ Helps mid-to-senior Apple platform engineers:
 ## 📦 Installation
 
 ```bash
-npx skills add <your-github-username>/ios-accessibility-agent-skill --skill ios-accessibility-advisor
+npx skills add saurabhdave/ios-accessibility-agent-skill --skill ios-accessibility-advisor
 ```
 
 ## 🧠 What It Covers
