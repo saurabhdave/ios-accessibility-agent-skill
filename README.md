@@ -9,7 +9,7 @@ Production-grade accessibility guidance for SwiftUI, UIKit, and AppKit.
 
 Install:
 
-npx skills add <your-username>/aiagents --skill ios-accessibility-advisor
+npx skills add saurabhdave/aiagents --skill ios-accessibility-advisor
 
 ---
 
