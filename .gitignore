@@ -1,0 +1,17 @@
+.DS_Store
+# Xcode
+build/
+DerivedData/
+*.xcuserdatad
+*.xcscmblueprint
+# Swift Package Manager
+.build/
+Package.resolved
+
+# macOS
+.AppleDouble
+.LSOverride
+
+# General
+*.swp
+*.lock
