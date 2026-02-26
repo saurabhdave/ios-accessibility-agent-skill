@@ -28,7 +28,7 @@ npm modules and can be plugged into your AI‑powered tooling via `npx skills`.
 
 ```bash
 # install a specific skill
-npx skills add saurabhdave/aiagents --skill apple-accessibility-advisor
+npx skills add https://github.com/saurabhdave/aiagents --skill apple-accessibility-advisor
 ```
 
 > Once added, invoke the skill by asking your AI agent to review code, recommend
