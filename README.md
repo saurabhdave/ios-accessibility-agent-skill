@@ -1,5 +1,15 @@
 # AI Agents – Apple Platform Engineering Skills 🚀
 
+## About
+
+This repository houses a set of AI‑driven skills tailored for Apple platform engineers.
+Each skill encapsulates domain expertise—from accessibility audits to performance
+optimizations—and is intended to be consumed by AI agents (via `npx skills`) in chat,
+code review, or automated workflows. The goal is to provide on‑demand, standardized
+recommendations that promote best practices across teams.
+
+## Overview
+
 A growing collection of **reusable AI agent skills** that help Apple platform developers
 build better‑architected, high‑performance, and accessible apps. Skills are delivered as
 npm modules and can be plugged into your AI‑powered tooling via `npx skills`.
