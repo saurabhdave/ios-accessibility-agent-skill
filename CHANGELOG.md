@@ -1,9 +1,27 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project are documented in this file.
 
-The format is inspired by Keep a Changelog and follows semantic
-versioning.
+This project follows Semantic Versioning (SemVer).
+
+------------------------------------------------------------------------
+
+## \[1.2.1\] - 2026-02-27
+
+### Added
+
+-   Claude Code plugin integration documentation.
+-   `.claude/manifest.json` support for marketplace-style loading.
+-   Agent-deterministic formatting requirement in SKILL.md.
+-   Expanded README with multi-install options (skills.sh, Claude
+    Plugin, Manual).
+
+### Improved
+
+-   Strengthened Output Contract enforcement.
+-   Improved agent parsing guidance in AGENTS.md.
+-   Enhanced enterprise positioning and installation clarity.
+-   README restructured to align with marketplace-style skill repos.
 
 ------------------------------------------------------------------------
 
@@ -11,27 +29,18 @@ versioning.
 
 ### Added
 
--   Explicit Output Contract section in `apple-accessibility-advisor`.
--   Deterministic Constraints section to improve agent compliance.
--   Multi-platform scope clarification (iOS, iPadOS, macOS, watchOS,
-    visionOS, tvOS).
+-   Explicit Output Contract section.
+-   Deterministic Constraints section.
+-   Multi-platform scope clarification.
 -   Conditional audit checklist guidance.
--   Stronger WCAG alignment references.
+-   AGENTS.md for machine-optimized context.
+-   CHANGELOG.md with semantic version tracking.
 
 ### Improved
 
--   Tightened language for agent optimization.
--   Reduced narrative tone in favor of instruction density.
--   Strengthened enterprise positioning and architectural focus.
--   Updated README to align with v1.2.0 skill structure.
--   Improved installation clarity and usage examples.
-
-### Structural Enhancements
-
--   Clear separation between orchestration (`SKILL.md`) and supporting
-    modules.
--   Repository documentation optimized for Open Agent Skills
-    compatibility.
+-   Reduced narrative tone.
+-   Increased instruction density for agent compliance.
+-   Strengthened WCAG alignment references.
 
 ------------------------------------------------------------------------
 
@@ -41,7 +50,7 @@ versioning.
 
 -   Audit checklist section.
 -   Expanded multi-platform coverage.
--   Testing and CI/CD accessibility considerations.
+-   Accessibility testing and CI considerations.
 
 ------------------------------------------------------------------------
 
@@ -50,6 +59,5 @@ versioning.
 ### Initial Release
 
 -   Apple Accessibility Advisor skill.
--   Core accessibility coverage (SwiftUI, UIKit, AppKit, WatchKit).
 -   WCAG 2.1 AA alignment.
 -   Enterprise accessibility audit guidance.

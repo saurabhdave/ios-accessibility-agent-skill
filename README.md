@@ -38,17 +38,41 @@ CLI.
 
 ------------------------------------------------------------------------
 
-## 📂 Repository Structure
 
-    skills/
-      apple-accessibility-advisor/
-        SKILL.md
-        accessibility-patterns.md
-        swiftui-examples.md
-        testing-strategies.md
-        wcag-guidelines.md
-    .claude/
-      manifest.json
+## What Makes This Skill Different
+
+**Enterprise-oriented.**\
+Designed for production applications --- not tutorial-level examples.
+
+**Architectural focus.**\
+Prioritizes scalable, multi-platform accessibility patterns.
+
+**Deterministic output.**\
+Enforces a strict Output Contract to ensure consistent structured
+responses.
+
+**Agent-framework agnostic.**\
+Works with Claude Code, Cursor, Copilot-style agents, and other tools
+supporting the Agent Skills format.
+
+------------------------------------------------------------------------
+
+## Skill Structure
+
+    aiagents/
+    ├── .claude/
+    │   └── manifest.json
+    ├── skills/
+    │   └── apple-accessibility-advisor/
+    │       ├── SKILL.md
+    │       ├── accessibility-patterns.md
+    │       ├── swiftui-examples.md
+    │       ├── testing-strategies.md
+    │       └── wcag-guidelines.md
+    ├── AGENTS.md
+    ├── CHANGELOG.md
+    ├── LICENSE
+    └── README.md
 
 ------------------------------------------------------------------------
 
@@ -66,30 +90,75 @@ CLI.
 
 ------------------------------------------------------------------------
 
-## 📦 Installation
+## How to Use This Skill
+
+### Option A --- Using skills.sh (Recommended)
 
 ``` bash
 npx skills add saurabhdave/aiagents --skill apple-accessibility-advisor
 ```
 
+Visit https://skills.sh to learn more about the Agent Skills format.
+
 ------------------------------------------------------------------------
 
-## 🤖 Claude Code Integration
+### Option B --- Claude Code Plugin
 
-This repository supports Claude Code skill loading.
+#### Personal Usage
 
-If using Claude Code:
+    /plugin marketplace add saurabhdave/aiagents
+    /plugin install apple-accessibility-advisor@aiagents
 
-1.  Clone this repository.
-2.  Ensure `.claude/manifest.json` exists.
-3.  Run:
+#### Project Configuration (Team-Wide)
 
-``` bash
-claude skills add saurabhdave/aiagents --skill apple-accessibility-advisor
+Add this to `.claude/settings.json`:
+
+``` json
+{
+  "enabledPlugins": {
+    "apple-accessibility-advisor@aiagents": true
+  },
+  "extraKnownMarketplaces": {
+    "aiagents": {
+      "source": {
+        "source": "github",
+        "repo": "saurabhdave/aiagents"
+      }
+    }
+  }
+}
 ```
 
-Claude will automatically apply the Output Contract defined in
-`SKILL.md`.
+Committing this file enables the skill automatically for all team
+members.
+
+------------------------------------------------------------------------
+
+### Option C --- Manual Installation
+
+1.  Clone the repository:
+
+``` bash
+git clone https://github.com/saurabhdave/aiagents.git
+```
+
+2.  Copy or symlink:
+
+```{=html}
+<!-- -->
+```
+    skills/apple-accessibility-advisor/
+
+into your AI tool's skills directory.
+
+3.  Restart or reload your agent.
+
+Refer to your tool documentation for skills directory location:
+
+-   Claude Code
+-   Cursor
+-   Windsurf
+-   Other Agent-Skills compatible tools
 
 ------------------------------------------------------------------------
 
