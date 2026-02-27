@@ -1,77 +1,135 @@
-# AGENTS Integration Guide
+# AGENTS.md --- Agent Integration Guide (v1.2.0)
 
-This file provides machine‑friendly context and invocation examples to help AI agents
-(e.g. Copilot, Claude, Cursor, or custom agent runtimes) use the skills in this
-repository effectively.
+This file provides machine-optimized context for AI agents interacting
+with this repository.
 
-## Purpose
+It defines invocation expectations, output contracts, parsing rules, and
+behavioral constraints for the skills in this repo.
 
-Enable programmatic discovery, safe invocation, and predictable outputs from the
-`apple-accessibility-advisor` skill and any future skills in this repo.
+------------------------------------------------------------------------
 
-## Skill Metadata (machine‑readable)
+## Repository Scope
 
-- `skill_id`: `apple-accessibility-advisor`
-- `version`: `1.1.0`
-- `author`: `Saurabh Dave`
-- `platforms`: ["iOS","iPadOS","macOS","watchOS","visionOS","tvOS"]
-- `areas`: ["accessibility","swiftui","uikit","appkit","testing"]
-- `manifest_file`: `skills/apple-accessibility-advisor/SKILL.md`
+This repository contains Open Agent Skills focused on Apple platform
+engineering.
 
-Agents may parse `SKILL.md` for prompt templates, examples, and response structure.
+Current Skill: - apple-accessibility-advisor (v1.2.0)
 
-## Expected Response Structure
+Planned Domains: - Performance optimization - Architecture review -
+Concurrency modernization - CI automation guidance
 
-When asked to review or suggest changes, the skill should return a response with
-these labelled sections (plain text or structured JSON):
+Audience: Intermediate to senior Apple platform engineers.
 
-1. Issues Identified — concise list of problems.
-2. Recommended Improvements — prioritized actionable fixes.
-3. Code Examples — minimal, copyable Swift/SwiftUI snippets when applicable.
-4. Testing Strategy — how to validate the change (manual + automation).
-5. Production Considerations — performance, localization, and audit notes.
+------------------------------------------------------------------------
 
-Agents should prefer this structured output when generating replies.
+## Skill Registry (Machine Metadata)
 
-## Invocation Examples (system/prompt)
+-   skill_id: apple-accessibility-advisor
+-   version: 1.2.0
+-   author: Saurabh Dave
+-   platforms: \["iOS","iPadOS","macOS","watchOS","visionOS","tvOS"\]
+-   areas:
+    \["accessibility","swiftui","uikit","appkit","watchkit","testing","wcag"\]
+-   manifest_file: skills/apple-accessibility-advisor/SKILL.md
 
-- Short review:
-  "Review this SwiftUI `ProfileRow` for accessibility issues and return the
-  structured response with issues, fixes, code and tests."
+Agents must treat SKILL.md as the authoritative instruction set.
 
-- Deep audit:
-  "Run an accessibility audit checklist for this module and produce a prioritized
-  remediation plan suitable for inclusion in a sprint."
+------------------------------------------------------------------------
 
-- Platform specific:
-  "Explain how to adapt this VoiceOver behavior for watchOS and tvOS, include
-  code and testing notes."
+## Invocation Contract
 
-## Parsing Guidance for Agents
+When invoking `apple-accessibility-advisor`, agents MUST enforce the
+Output Contract defined in SKILL.md.
 
-- Prefer the `SKILL.md` for metadata and the docs folder for patterns/examples.
-- If extracting code examples, return only fenced code blocks marked `swift`.
-- Validate that any returned code follows platform constraints mentioned in the
-  skill (e.g. WatchKit or tvOS differences).
+Expected structured sections:
 
-## Safety / Constraints
+1.  Issues Identified
+2.  Impact
+3.  Recommended Improvements
+4.  Code Examples
+5.  Testing Strategy
+6.  Production Considerations
 
-- Do not modify user files automatically without an explicit confirmation step.
-- When suggesting accessibility labels or copy, mark any assumed/localized text
-  clearly so the human reviewer can verify translations.
+Responses must use clear section headers and deterministic formatting.
 
-## Testing Prompts (use in CI or regression)
+------------------------------------------------------------------------
 
-- "Given the `ProfileRow` code, does every interactive view have an
-  accessibilityLabel and hint? Return `true` or a list of missing elements."
-- "Check this README and SKILL.md for required sections; return `ok` or a list
-  of missing headings."
+## Behavioral Constraints
+
+Agents using this repository MUST:
+
+-   Prefer modern Swift and SwiftUI APIs.
+-   Avoid deprecated frameworks.
+-   Provide concrete code examples when relevant.
+-   Assume intermediate-to-senior developer knowledge.
+-   Favor architectural improvements over superficial fixes.
+-   Align recommendations with Apple HIG and WCAG 2.1 AA where
+    applicable.
+-   Avoid unnecessary verbosity.
+-   Never auto-modify user files without explicit confirmation.
+
+------------------------------------------------------------------------
+
+## Parsing & Formatting Rules
+
+-   If returning code, use fenced blocks marked with `swift`.
+-   If returning checklist results, preserve checklist formatting.
+-   If asked for binary validation, return `true` or a structured list
+    of violations.
+-   Maintain professional, technical tone.
+
+------------------------------------------------------------------------
+
+## Invocation Examples
+
+Short Review: "Audit this SwiftUI view for accessibility compliance and
+return structured output."
+
+Deep Audit: "Run a full accessibility audit and produce a prioritized
+remediation plan."
+
+Platform-Specific: "Adapt this VoiceOver behavior for watchOS and tvOS.
+Include code and testing notes."
+
+CI Validation: "Verify that all interactive elements define
+accessibility labels and return missing elements only."
+
+------------------------------------------------------------------------
+
+## Skill Loading Strategy for Agents
+
+1.  Load SKILL.md first.
+2.  Apply Output Contract.
+3.  Reference supporting modules only when deeper guidance is needed:
+    -   accessibility-patterns.md
+    -   testing-strategies.md
+    -   wcag-guidelines.md
+    -   swiftui-examples.md
+4.  Maintain deterministic structure.
+
+------------------------------------------------------------------------
+
+## Versioning Policy
+
+Semantic Versioning:
+
+-   Major → Output contract or structural changes
+-   Minor → Capability expansion
+-   Patch → Wording refinement or minor improvements
+
+Agents should reference version when debugging structured outputs.
+
+------------------------------------------------------------------------
 
 ## Maintenance
 
-- Update this `AGENTS.md` whenever new skills are added or the `SKILL.md` format
-  changes.
+Update this file when:
 
----
+-   A new skill is added
+-   The Output Contract changes
+-   Behavioral constraints change
+-   The repository structure evolves
 
-File location: `AGENTS.md` — place this alongside `README.md` for agent discovery.
+------------------------------------------------------------------------
+
+End of AGENTS.md

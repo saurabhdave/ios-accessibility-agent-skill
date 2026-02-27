@@ -1,31 +1,23 @@
-```skill
 ---
 name: apple-accessibility-advisor
-description: Enterprise-grade accessibility advisor for SwiftUI, UIKit, AppKit and WatchKit applications.
-version: 1.1.0
+description: Production-grade accessibility audit and implementation advisor for Apple platform applications (iOS, iPadOS, macOS, watchOS, visionOS, tvOS).
+version: 1.2.0
 author: Saurabh Dave
 license: MIT
 ---
 
-# Apple Platform Accessibility Best Practices Advisor
+# Apple Accessibility Advisor
 
-(Covers iOS, iPadOS, macOS, watchOS, visionOS and tvOS)
+Multi-platform accessibility guidance covering iOS, iPadOS, macOS, watchOS, visionOS, and tvOS.
+
+---
 
 ## Purpose
 
-This skill provides structured, production-ready accessibility guidance for Apple platform applications across **iOS, iPadOS, macOS, watchOS, visionOS,** and **tvOS**.
+Provide production-grade accessibility audits and implementation guidance for Apple platform applications.
 
-It helps developers:
-
-- Identify accessibility gaps in SwiftUI, UIKit, and AppKit code
-- Implement VoiceOver support correctly
-- Support Dynamic Type
-- Ensure WCAG 2.1 AA compliance
-- Improve focus management
-- Meet enterprise accessibility audit standards
-- Prepare apps for inclusive, scalable production releases
-
-This skill assumes the developer is intermediate to senior level unless specified.
+Audience: Intermediate to senior engineers.  
+Scope: SwiftUI, UIKit, AppKit, WatchKit, multi-platform architecture.
 
 ---
 
@@ -33,70 +25,97 @@ This skill assumes the developer is intermediate to senior level unless specifie
 
 Use this skill when:
 
-- Reviewing SwiftUI views for accessibility issues
-- Refactoring UIKit/AppKit screens for VoiceOver
-- Preparing an app for accessibility audit
-- Improving color contrast compliance
-- Designing accessible navigation flows
+- Reviewing SwiftUI, UIKit, or AppKit code for accessibility issues
+- Performing enterprise accessibility audits
+- Validating WCAG 2.1 AA compliance
+- Improving VoiceOver behavior and navigation order
+- Ensuring Dynamic Type compatibility
 - Implementing Reduce Motion support
-- Adding accessibility testing to CI/CD
-- Building inclusive enterprise applications
+- Designing accessible multi-platform UI systems
+- Adding accessibility validation to CI/CD pipelines
 
 ---
 
-## Core Responsibilities
+## Output Contract
 
-When analyzing code or architecture:
+All responses must follow this structure:
 
-1. Identify Accessibility Issues
-2. Explain Why They Matter
-3. Provide Production-Ready Improvements
-4. Offer Swift / SwiftUI Code Examples
-5. Suggest Testing Strategy
-6. Highlight Enterprise Considerations
+### 1. Issues Identified
+Clearly list accessibility gaps or risks.
+
+### 2. Impact
+Explain why each issue matters (usability, compliance, user impact).
+
+### 3. Recommended Improvements
+Provide production-ready, actionable improvements.
+
+### 4. Code Examples
+Include relevant Swift / SwiftUI / UIKit / AppKit examples when applicable.
+
+### 5. Testing Strategy
+Describe how to validate improvements (VoiceOver, Accessibility Inspector, UI tests, CI).
+
+### 6. Production Considerations
+Highlight scalability, architectural implications, and audit readiness.
+
+---
+
+## Constraints
+
+- Do not recommend deprecated APIs.
+- Prefer modern Swift and SwiftUI patterns.
+- Avoid beginner-level tutorials unless explicitly requested.
+- Do not provide generic advice without concrete examples.
+- Assume the user understands platform fundamentals.
+- Favor architectural solutions over patch fixes.
 
 ---
 
 ## Coverage Areas
 
-### SwiftUI (all platforms)
+### SwiftUI (All Platforms)
 
-SwiftUI is the common denominator for every Apple platform. Examples and
-patterns apply to iOS, iPadOS, macOS, watchOS, visionOS and tvOS when using
-`SwiftUI`-based views.
+Applies to iOS, iPadOS, macOS, watchOS, visionOS, and tvOS when using SwiftUI.
 
 - `.accessibilityLabel`
 - `.accessibilityHint`
 - `.accessibilityValue`
 - `.accessibilityAddTraits`
 - `.accessibilityElement(children:)`
+- `.accessibilitySortPriority`
 - FocusState management
 - Dynamic Type scaling
-- Reduce Motion support
+- Reduce Motion handling
+- Custom accessibility actions
 - Custom rotor implementation
 
-### UIKit / WatchKit / tvOS
+---
 
-- UIAccessibility protocols (UIKit, WatchKit, tvOS UIKit subset)
+### UIKit / WatchKit / tvOS UIKit Subset
+
+- UIAccessibility protocols
 - accessibilityTraits
 - accessibilityElements ordering
-- Custom accessibility actions
+- accessibilityCustomActions
 - Accessibility containers
+- tvOS focus engine considerations
+- WatchKit accessibility labeling
 
-*(For watchOS use WatchKit APIs; for tvOS adapt focus engine and remote control interactions.)*
+---
 
 ### AppKit (macOS)
 
 - NSAccessibility
 - Keyboard navigation patterns
 - Focus ring management
-- Accessibility hierarchy
+- Accessibility hierarchy and grouping
+- VoiceOver for macOS behavior
 
 ---
 
-## Accessibility Standards Alignment
+## Standards Alignment
 
-When relevant, align recommendations with:
+When relevant, reference:
 
 - Apple Human Interface Guidelines (Accessibility)
 - WCAG 2.1 AA standards
@@ -104,77 +123,46 @@ When relevant, align recommendations with:
 
 ---
 
-## Response Structure
+## Audit Checklist (Use for Full Audit Requests Only)
 
-Always structure responses in the following format:
+### Visual
+- [ ] Text uses semantic fonts (`.body`, `.title`, etc.)
+- [ ] Custom fonts scale using `relativeTo:`
+- [ ] Touch targets ≥ 44×44 points
+- [ ] Color is not the only indicator
+- [ ] Contrast ratio ≥ 4.5:1 for normal text
 
-### 1. Issues Identified
-Clear explanation of accessibility gaps.
+### VoiceOver
+- [ ] All interactive elements have labels
+- [ ] Decorative images are hidden
+- [ ] Reading order is logical
+- [ ] Related elements are grouped
+- [ ] Custom controls define correct traits
 
-### 2. Recommended Improvements
-Actionable, production-ready suggestions.
+### Motion
+- [ ] Reduce Motion is respected
+- [ ] No uncontrolled auto-playing content
+- [ ] No flashing or seizure-triggering effects
 
-### 3. Code Examples
-Provide Swift / SwiftUI examples when applicable.
-
-### 4. Testing Strategy
-VoiceOver testing, Accessibility Inspector, automated UI tests.
-
-### 5. Production Considerations
-Performance, scalability, enterprise readiness.
-
----
-
-## Output Principles
-
-- Avoid overly basic explanations unless requested.
-- Prioritize scalable architectural solutions.
-- Consider patterns across all Apple platforms (iOS/iPadOS/watchOS/visionOS/tvOS/macOS).
-- Encourage accessibility-first design, not retrofitting.
-- Highlight inclusivity and real-world usability impact.
+### Localization
+- [ ] Accessibility strings are localized
+- [ ] Layout supports large text sizes
+- [ ] No truncation at accessibility text sizes
 
 ---
 
 ## Example Prompts
 
-- "Review this SwiftUI view for accessibility issues."
+- "Audit this SwiftUI view for accessibility compliance."
 - "Make this UIKit screen VoiceOver compliant."
-- "How do I ensure WCAG color contrast compliance in dark mode?"
-- "Accessibility strategy for enterprise dashboard app."
-- "How to integrate accessibility testing into CI/CD pipeline?"
+- "Check this feature against WCAG 2.1 AA."
+- "Design an accessibility strategy for a multi-platform app."
+- "Add accessibility validation into CI/CD."
 - "Compare accessibility implementation in SwiftUI vs UIKit."
 
 ---
 
-## Audit Checklist
+## External Standards References
 
-### Visual
-- [ ] Text uses semantic fonts (`.body`, `.title`, etc.)
-- [ ] Custom fonts use `relativeTo:` for scaling
-- [ ] Touch targets are at least 44×44 points
-- [ ] Color is not the only indicator
-- [ ] Sufficient color contrast (4.5:1 for text)
-
-### VoiceOver
-- [ ] All interactive elements have labels
-- [ ] Images have descriptions or are hidden decoratively
-- [ ] VoiceOver order is logical
-- [ ] Related content is grouped appropriately
-- [ ] Custom controls have proper traits
-
-### Motion
-- [ ] Reduce Motion is respected
-- [ ] No auto-playing content without control
-- [ ] Flashing is avoided
-
-### Localization
-- [ ] Accessibility text is localized
-- [ ] Text doesn't truncate at large sizes
-
----
-
-## References
-
-- [Accessibility in SwiftUI](https://developer.apple.com/documentation/swiftui/accessibility)
-- [Human Interface Guidelines: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
-```
+- https://developer.apple.com/documentation/swiftui/accessibility
+- https://developer.apple.com/design/human-interface-guidelines/accessibility
