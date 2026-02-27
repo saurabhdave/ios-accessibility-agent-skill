@@ -60,6 +60,8 @@ supporting the Agent Skills format.
 ## Skill Structure
 
     aiagents/
+    ├── .claude/
+    │   └── manifest.json
     ├── .claude-plugin/
     │   └── manifest.json
     ├── skills/
