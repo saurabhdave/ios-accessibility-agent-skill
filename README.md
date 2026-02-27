@@ -60,7 +60,7 @@ supporting the Agent Skills format.
 ## Skill Structure
 
     aiagents/
-    ├── .claude/
+    ├── .claude-plugin/
     │   └── manifest.json
     ├── skills/
     │   └── apple-accessibility-advisor/
