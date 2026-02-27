@@ -2,7 +2,7 @@
 ---
 name: apple-accessibility-advisor
 description: Enterprise-grade accessibility advisor for SwiftUI, UIKit, AppKit and WatchKit applications.
-version: 1.0.0
+version: 1.1.0
 author: Saurabh Dave
 license: MIT
 ---

@@ -12,7 +12,7 @@ Enable programmatic discovery, safe invocation, and predictable outputs from the
 ## Skill Metadata (machine‑readable)
 
 - `skill_id`: `apple-accessibility-advisor`
-- `version`: `1.0.0`
+- `version`: `1.1.0`
 - `author`: `Saurabh Dave`
 - `platforms`: ["iOS","iPadOS","macOS","watchOS","visionOS","tvOS"]
 - `areas`: ["accessibility","swiftui","uikit","appkit","testing"]
