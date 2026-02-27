@@ -6,6 +6,24 @@ This project follows Semantic Versioning (SemVer).
 
 ------------------------------------------------------------------------
 
+## \[1.2.2\] - 2026-02-27
+
+### Added
+
+-   Automated GitHub Release workflow (tag-based).
+-   Automated README version badge update workflow.
+-   CI-ready release automation using GitHub Actions.
+
+### Improved
+
+-   Release process now fully automated on semantic version tags
+    (v*.*.\*).
+-   README version badge now updates automatically based on tag.
+-   Repository maturity upgraded to production-grade automation
+    standards.
+
+------------------------------------------------------------------------
+
 ## \[1.2.1\] - 2026-02-27
 
 ### Added
