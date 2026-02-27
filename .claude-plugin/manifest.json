@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "pluginRoot": "./skills"
+  },
+  "plugins": [
+    {
+      "name": "apple-accessibility-advisor",
+      "source": "skills/apple-accessibility-advisor",
+      "skills": [
+        "./skills/apple-accessibility-advisor"
+      ]
+    }
+  ]
+}
