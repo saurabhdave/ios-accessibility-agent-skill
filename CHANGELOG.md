@@ -6,24 +6,31 @@ This project follows Semantic Versioning (SemVer).
 
 ------------------------------------------------------------------------
 
-## \[1.2.3\] - 2026-02-27
+## \[1.2.4\] - 2026-02-27
 
 ### Added
 
--   CI validation workflow (`validate-skill.yml`) to enforce version
-    consistency.
--   Automatic validation that:
-    -   `SKILL.md` version matches `.claude/manifest.json`
-    -   Git tag matches `SKILL.md` version
-    -   Required metadata fields exist in `SKILL.md`
--   Pull request validation for skill integrity before merge.
+-   Finalized CI validation workflow (`validate-skill.yml`).
+-   Enforced strict version consistency between:
+    -   SKILL.md
+    -   .claude/manifest.json
+    -   Git tags
+-   Pull request validation to prevent version drift before merge.
 
 ### Improved
 
--   Strengthened release automation safeguards.
--   Prevented version drift between skill definition, manifest, and Git
-    tags.
--   Elevated repository to production-grade CI validation standards.
+-   Strengthened automated release safeguards.
+-   Ensured release pipeline fails on metadata mismatch.
+-   Elevated repository to fully automated, production-grade DevOps
+    standards.
+
+------------------------------------------------------------------------
+
+## \[1.2.3\]
+
+### Added
+
+-   Initial CI validation workflow implementation.
 
 ------------------------------------------------------------------------
 
