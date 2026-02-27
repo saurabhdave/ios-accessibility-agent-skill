@@ -1,7 +1,7 @@
 # AI Agents -- Apple Platform Engineering Skills 🚀
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-1.2.0-green.svg) ![Open
+![Version](https://img.shields.io/badge/version-1.2.1-green.svg) ![Open
 Agent
 Skills](https://img.shields.io/badge/OpenAgentSkills-compatible-purple)
 
@@ -33,8 +33,8 @@ developers:
 -   Enforce platform best practices
 -   Prepare for enterprise review and compliance
 
-Skills are installable into compatible AI tooling (Claude Code, Cursor,
-Copilot extensions, etc.) using the `skills` CLI.
+Skills are installable into compatible AI tooling using the `skills`
+CLI.
 
 ------------------------------------------------------------------------
 
@@ -47,11 +47,8 @@ Copilot extensions, etc.) using the `skills` CLI.
         swiftui-examples.md
         testing-strategies.md
         wcag-guidelines.md
-
-Each skill folder contains:
-
--   `SKILL.md` → Agent instructions and output contract
--   Supporting modules → Implementation patterns and reference guidance
+    .claude/
+      manifest.json
 
 ------------------------------------------------------------------------
 
@@ -72,26 +69,31 @@ Each skill folder contains:
 ## 📦 Installation
 
 ``` bash
-# Install the Apple Accessibility Advisor
 npx skills add saurabhdave/aiagents --skill apple-accessibility-advisor
 ```
 
-After installation, invoke the skill in your AI agent with prompts such
-as:
+------------------------------------------------------------------------
 
--   "Audit this SwiftUI view for accessibility compliance."
--   "Make this UIKit screen VoiceOver compliant."
--   "Validate this feature against WCAG 2.1 AA."
--   "Design a multi-platform accessibility strategy."
+## 🤖 Claude Code Integration
 
-See `skills/apple-accessibility-advisor/SKILL.md` for full usage
-guidance.
+This repository supports Claude Code skill loading.
+
+If using Claude Code:
+
+1.  Clone this repository.
+2.  Ensure `.claude/manifest.json` exists.
+3.  Run:
+
+``` bash
+claude skills add saurabhdave/aiagents --skill apple-accessibility-advisor
+```
+
+Claude will automatically apply the Output Contract defined in
+`SKILL.md`.
 
 ------------------------------------------------------------------------
 
 ## 📈 Roadmap
-
-Planned additions:
 
 -   SwiftUI Performance Advisor
 -   iOS Architecture Reviewer
@@ -99,30 +101,10 @@ Planned additions:
 -   UIKit to SwiftUI Migration Assistant
 -   Concurrency & Async/Await Modernization Advisor
 
-Suggestions are welcome --- open an issue to propose a new skill.
-
-------------------------------------------------------------------------
-
-## 🤝 Contributing
-
-To contribute:
-
-1.  Fork the repository.
-2.  Create a new branch.
-3.  Add a new folder under `skills/` with your `SKILL.md` and supporting
-    modules.
-4.  Update the skills table in this README.
-5.  Ensure Markdown formatting is clean.
-6.  Submit a pull request with a clear description of the skill.
-
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for full guidelines.
-
 ------------------------------------------------------------------------
 
 ## 📄 License
 
 MIT © 2026 Saurabh Dave
-
-------------------------------------------------------------------------
 
 Maintained by Saurabh Dave.

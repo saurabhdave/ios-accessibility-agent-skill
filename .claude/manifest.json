@@ -1,0 +1,14 @@
+{
+  "name": "aiagents",
+  "description": "Open Agent Skills for Apple platform engineering.",
+  "skills": [
+    {
+      "id": "apple-accessibility-advisor",
+      "version": "1.2.0",
+      "entry": "skills/apple-accessibility-advisor/SKILL.md",
+      "description": "Production-grade accessibility advisor for Apple platforms.",
+      "tags": ["accessibility", "swiftui", "uikit", "appkit", "wcag", "testing"],
+      "platforms": ["iOS", "iPadOS", "macOS", "watchOS", "visionOS", "tvOS"]
+    }
+  ]
+}

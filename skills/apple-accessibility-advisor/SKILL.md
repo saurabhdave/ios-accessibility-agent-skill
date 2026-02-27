@@ -68,6 +68,7 @@ Highlight scalability, architectural implications, and audit readiness.
 - Do not provide generic advice without concrete examples.
 - Assume the user understands platform fundamentals.
 - Favor architectural solutions over patch fixes.
+- Maintain deterministic formatting for compatibility with Claude Code.
 
 ---
 
