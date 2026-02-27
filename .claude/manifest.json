@@ -4,7 +4,7 @@
   "skills": [
     {
       "id": "apple-accessibility-advisor",
-      "version": "1.2.0",
+      "version": "1.2.4",
       "entry": "skills/apple-accessibility-advisor/SKILL.md",
       "description": "Production-grade accessibility advisor for Apple platforms.",
       "tags": ["accessibility", "swiftui", "uikit", "appkit", "wcag", "testing"],
