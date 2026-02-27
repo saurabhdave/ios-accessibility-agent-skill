@@ -1,0 +1,35 @@
+name: Update README Version Badge
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Update README version badge
+        run: |
+          sed -i "s/badge\/version-[0-9.]*-green/badge\/version-${{ steps.version.outputs.VERSION }}-green/g" README.md
+
+      - name: Commit updated README
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add README.md
+          git commit -m "Auto-update README version badge to v${{ steps.version.outputs.VERSION }}" || echo "No changes to commit"
+
+      - name: Push changes
+        run: |
+          git push origin HEAD:main
