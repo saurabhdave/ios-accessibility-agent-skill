@@ -142,14 +142,7 @@ members.
 git clone https://github.com/saurabhdave/aiagents.git
 ```
 
-2.  Copy or symlink:
-
-```{=html}
-<!-- -->
-```
-    skills/apple-accessibility-advisor/
-
-into your AI tool's skills directory.
+2.  Copy or symlink: `skills/apple-accessibility-advisor/` into your AI tool's skills directory.
 
 3.  Restart or reload your agent.
 
