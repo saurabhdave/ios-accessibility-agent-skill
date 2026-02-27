@@ -1,0 +1,64 @@
+name: Validate Skill Version Consistency
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-skill:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract tag version (if tag build)
+        id: tag
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          else
+            echo "TAG_VERSION=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract SKILL.md version
+        id: skill
+        run: |
+          SKILL_VERSION=$(grep "^version:" skills/apple-accessibility-advisor/SKILL.md | awk '{print $2}')
+          echo "SKILL_VERSION=$SKILL_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Extract manifest.json version
+        id: manifest
+        run: |
+          MANIFEST_VERSION=$(jq -r '.skills[0].version' .claude/manifest.json)
+          echo "MANIFEST_VERSION=$MANIFEST_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Validate required fields in SKILL.md
+        run: |
+          REQUIRED_FIELDS=("name:" "description:" "version:" "author:" "license:")
+          for field in "${REQUIRED_FIELDS[@]}"; do
+            grep -q "$field" skills/apple-accessibility-advisor/SKILL.md || { echo "Missing $field in SKILL.md"; exit 1; }
+          done
+
+      - name: Validate version consistency (SKILL vs Manifest)
+        run: |
+          if [ "${{ steps.skill.outputs.SKILL_VERSION }}" != "${{ steps.manifest.outputs.MANIFEST_VERSION }}" ]; then
+            echo "Version mismatch between SKILL.md and manifest.json"
+            exit 1
+          fi
+
+      - name: Validate tag matches SKILL.md (only on tag push)
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          if [ "${{ steps.tag.outputs.TAG_VERSION }}" != "${{ steps.skill.outputs.SKILL_VERSION }}" ]; then
+            echo "Tag version does not match SKILL.md version"
+            exit 1
+          fi
+
+      - name: Success
+        run: echo "Skill validation passed successfully."
