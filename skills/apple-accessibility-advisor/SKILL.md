@@ -143,4 +143,38 @@ Performance, scalability, enterprise readiness.
 - "Accessibility strategy for enterprise dashboard app."
 - "How to integrate accessibility testing into CI/CD pipeline?"
 - "Compare accessibility implementation in SwiftUI vs UIKit."
+
+---
+
+## Audit Checklist
+
+### Visual
+- [ ] Text uses semantic fonts (`.body`, `.title`, etc.)
+- [ ] Custom fonts use `relativeTo:` for scaling
+- [ ] Touch targets are at least 44×44 points
+- [ ] Color is not the only indicator
+- [ ] Sufficient color contrast (4.5:1 for text)
+
+### VoiceOver
+- [ ] All interactive elements have labels
+- [ ] Images have descriptions or are hidden decoratively
+- [ ] VoiceOver order is logical
+- [ ] Related content is grouped appropriately
+- [ ] Custom controls have proper traits
+
+### Motion
+- [ ] Reduce Motion is respected
+- [ ] No auto-playing content without control
+- [ ] Flashing is avoided
+
+### Localization
+- [ ] Accessibility text is localized
+- [ ] Text doesn't truncate at large sizes
+
+---
+
+## References
+
+- [Accessibility in SwiftUI](https://developer.apple.com/documentation/swiftui/accessibility)
+- [Human Interface Guidelines: Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility)
 ```
