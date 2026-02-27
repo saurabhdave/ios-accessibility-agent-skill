@@ -1,51 +1,112 @@
-# Accessibility Architecture Patterns
+# Accessibility Patterns
 
 Apple Platform Production Accessibility Guidance (iOS, iPadOS, macOS, watchOS, visionOS, tvOS)
 
-This document defines reusable accessibility implementation patterns for
-SwiftUI, UIKit (including WatchKit/tvOS variants), and AppKit applications.
+This document combines high‑level architectural patterns with rich SwiftUI
+and UIKit examples. Use it as both an audit checklist and a coding
+reference; the patterns are suitable for enterprise‑scale, accessible
+apps.
 
-These patterns are intended for production-grade, scalable applications
-and enterprise audit readiness.
+## 1. VoiceOver
 
-------------------------------------------------------------------------
+### Labels and Hints (Explicit Labeling)
 
-# 1. VoiceOver Interaction Patterns
+Problem: Controls that rely on visible text or icons are often left
+unlabeled. VoiceOver users need semantic descriptions.
 
-## Pattern: Explicit Labeling
-
-### Problem
-
-UI elements rely on visible text but lack semantic accessibility labels.
-
-### Recommended Implementation (SwiftUI)
-
-``` swift
-Image(systemName: "trash")
-    .accessibilityLabel("Delete item")
-    .accessibilityHint("Removes this item permanently")
+**SwiftUI**
+```swift
+Button(action: { deleteItem() }) {
+    Image(systemName: "trash")
+}
+.accessibilityLabel("Delete item")
+.accessibilityHint("Removes this item permanently")
 ```
 
-### UIKit
-
-``` swift
+**UIKit**
+```swift
 deleteButton.accessibilityLabel = "Delete item"
 deleteButton.accessibilityHint = "Removes this item permanently"
 ```
 
-### Production Consideration
+> Production note: never depend on color or an icon alone; provide
+> clarity in every state.
 
-Never rely on icon-only meaning. Always provide semantic clarity.
+### Grouping Elements
 
-------------------------------------------------------------------------
+Related elements may be spoken separately or together. Use grouping to
+present a logical chunk.
 
-# 2. Focus Management Patterns
+```swift
+// Combine related elements into one
+HStack {
+    Image(systemName: "star.fill")
+    Text("4.5 rating")
+}
+.accessibilityElement(children: .combine)
 
-## Pattern: Logical Reading Order
+// Custom combined label
+VStack {
+    Text(item.name)
+    Text(item.price)
+}
+.accessibilityElement(children: .ignore)
+.accessibilityLabel("\(item.name), \(item.price)")
+```
 
-### SwiftUI Solution
+### Custom Actions
 
-``` swift
+Provide alternative interactions for complex controls.
+
+```swift
+struct ItemRow: View {
+    let item: Item
+
+    var body: some View {
+        HStack {
+            Text(item.name)
+            Spacer()
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityActions {
+            Button("Edit") { editItem() }
+            Button("Delete") { deleteItem() }
+            Button("Share") { shareItem() }
+        }
+    }
+}
+```
+
+UIKit version:
+```swift
+let action1 = UIAccessibilityCustomAction(
+    name: "Share",
+    target: self,
+    selector: #selector(shareItem)
+)
+view.accessibilityCustomActions = [action1]
+```
+
+### Traits
+
+Mark elements with additional semantic hints.
+
+```swift
+Text("Welcome")
+    .accessibilityAddTraits(.isHeader)
+
+Button("Submit") { }
+    .accessibilityAddTraits(.startsMediaSession)
+
+Text("Status: Active")
+    .accessibilityAddTraits(.updatesFrequently)
+```
+
+### Focus Management
+
+**Pattern: Logical Reading Order**
+
+```swift
 VStack {
     header
     content
@@ -54,125 +115,327 @@ VStack {
 .accessibilityElement(children: .contain)
 ```
 
-### UIKit Solution
+For custom focus control use `@AccessibilityFocusState`:
 
-``` swift
-view.accessibilityElements = [headerView, contentView, footerView]
-```
+```swift
+struct FormView: View {
+    @AccessibilityFocusState private var focusedField: Field?
 
-### Production Consideration
+    enum Field: Hashable {
+        case name, email, submit
+    }
 
-Validate with real VoiceOver testing, not just simulator preview.
+    var body: some View {
+        VStack {
+            TextField("Name", text: $name)
+                .accessibilityFocused($focusedField, equals: .name)
 
-------------------------------------------------------------------------
+            TextField("Email", text: $email)
+                .accessibilityFocused($focusedField, equals: .email)
 
-# 3. Dynamic Type Scalability Pattern
-
-### SwiftUI Production Pattern
-
-``` swift
-Text("Profile")
-    .font(.title)
-    .minimumScaleFactor(0.8)
-```
-
-### UIKit Production Pattern
-
-``` swift
-label.font = UIFont.preferredFont(forTextStyle: .body)
-label.adjustsFontForContentSizeCategory = true
-```
-
-### Production Consideration
-
-Test at Accessibility Extra Extra Extra Large sizes.
-
-------------------------------------------------------------------------
-
-# 4. Color Contrast Compliance Pattern
-
-## WCAG 2.1 AA Minimum Contrast
-
--   Normal text: 4.5:1
--   Large text: 3:1
-
-### Recommended Practice
-
--   Validate with Accessibility Inspector
--   Avoid color-only indicators (add icon/text redundancy)
-
-------------------------------------------------------------------------
-
-# 5. Reduce Motion Pattern
-
-### SwiftUI Implementation
-
-``` swift
-@Environment(\.accessibilityReduceMotion) var reduceMotion
-
-if reduceMotion {
-    showDetails = true
-} else {
-    withAnimation {
-        showDetails = true
+            Button("Submit") { submit() }
+                .accessibilityFocused($focusedField, equals: .submit)
+        }
+        .onAppear {
+            focusedField = .name
+        }
     }
 }
 ```
 
-### Production Consideration
+> Validate order with real VoiceOver testing, not just the simulator.
 
-Respect system-wide Reduce Motion preference.
+## 2. Dynamic Type
 
-------------------------------------------------------------------------
+### Automatic Scaling
 
-# 6. Custom Accessibility Actions Pattern
+Prefer semantic fonts; they scale automatically.
 
-### SwiftUI Example
+```swift
+Text("Title").font(.title)
+Text("Body").font(.body)
+Text("Caption").font(.caption)
 
-``` swift
-.accessibilityAction(named: "Mark as Favorite") {
-    markFavorite()
+// Custom font with relative scaling
+Text("Custom")
+    .font(.custom("Helvetica", size: 16, relativeTo: .body))
+```
+
+### Limiting Scale
+
+```swift
+Text("Fixed Range")
+    .dynamicTypeSize(.small ... .xxxLarge)
+
+Text("No Accessibility Sizes")
+    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+```
+
+### Adjusting Layouts
+
+```swift
+@Environment(\.dynamicTypeSize) private var typeSize
+
+var body: some View {
+    if typeSize >= .accessibility1 {
+        // Vertical layout for large text
+        VStack(alignment: .leading) {
+            label
+            value
+        }
+    } else {
+        // Horizontal layout for normal text
+        HStack {
+            label
+            Spacer()
+            value
+        }
+    }
 }
 ```
 
-### UIKit Example
+### ScaledMetric
 
-``` swift
-let action = UIAccessibilityCustomAction(
-    name: "Mark as Favorite",
-    target: self,
-    selector: #selector(markFavorite)
-)
-view.accessibilityCustomActions = [action]
+```swift
+@ScaledMetric(relativeTo: .body) private var iconSize = 24.0
+@ScaledMetric private var spacing = 8.0
+
+Image(systemName: "star")
+    .frame(width: iconSize, height: iconSize)
+    .padding(spacing)
 ```
 
-------------------------------------------------------------------------
+> Test at Extra Extra Extra Large and with custom fonts.
 
-# 7. Accessibility Grouping Pattern
+## 3. Motion and Animation
 
-``` swift
-.accessibilityElement(children: .combine)
+### Reduce Motion
+
+```swift
+@Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+func toggleExpanded() {
+    if reduceMotion {
+        isExpanded.toggle()  // instant
+    } else {
+        withAnimation(.spring()) {
+            isExpanded.toggle()
+        }
+    }
+}
 ```
 
-------------------------------------------------------------------------
+### Safe Animations
 
-# 8. Enterprise Accessibility Audit Checklist
+```swift
+extension Animation {
+    static var accessibleSpring: Animation {
+        @Environment(\.accessibilityReduceMotion) var reduceMotion
+        return reduceMotion ? .none : .spring()
+    }
+}
 
-Before release, verify:
+// View modifier
+struct ReducedMotionModifier: ViewModifier {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    let animation: Animation
 
--   All interactive elements have labels
--   No contrast violations in light/dark mode
--   Dynamic Type does not break layout
--   VoiceOver navigation order matches UX
--   Custom gestures have accessible alternatives
--   Reduce Motion respected
--   Localization does not truncate accessible text
+    func body(content: Content) -> some View {
+        content.animation(reduceMotion ? nil : animation, value: UUID())
+    }
+}
+```
 
-------------------------------------------------------------------------
+> Respect the system preference and avoid auto‑playing content.
+
+## 4. Color and Contrast
+
+### WCAG 2.1 AA Minimum Contrast
+
+- Normal text: 4.5:1
+- Large text: 3:1
+
+### Reduce Transparency
+
+```swift
+@Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+
+var backgroundMaterial: some ShapeStyle {
+    reduceTransparency ? Color.systemBackground : Material.regular
+}
+```
+
+### High Contrast Colors
+
+```swift
+@Environment(\.colorSchemeContrast) private var contrast
+
+var textColor: Color {
+    contrast == .increased ? .primary : .secondary
+}
+```
+
+### Color Blind Support
+
+```swift
+// Don't rely on color alone
+HStack {
+    Circle()
+        .fill(status.color)
+        .frame(width: 8, height: 8)
+    Text(status.label)  // Always include text
+}
+
+// Use patterns or shapes
+if isError {
+    Image(systemName: "exclamationmark.triangle")  // shape indicates error
+        .foregroundStyle(.red)
+}
+```
+
+> Validate with Accessibility Inspector in both light and dark mode.
+
+## 5. Accessibility Modifiers
+
+Encapsulate common patterns with custom view modifiers.
+
+```swift
+extension View {
+    func accessibleCard(title: String, description: String) -> some View {
+        self
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(title)
+            .accessibilityHint(description)
+            .accessibilityAddTraits(.isButton)
+    }
+
+    func accessibleImage(_ description: String) -> some View {
+        self
+            .accessibilityLabel(description)
+            .accessibilityAddTraits(.isImage)
+    }
+
+    func accessibleDecorative() -> some View {
+        self.accessibilityHidden(true)
+    }
+}
+```
+
+**Usage**:
+
+```swift
+CardView(item: item)
+    .accessibleCard(
+        title: item.name,
+        description: "Double tap to view details"
+    )
+
+Image("hero")
+    .accessibleImage("Sunset over mountains")
+
+Image("decorative-line")
+    .accessibleDecorative()
+```
+
+## 6. Testing Accessibility
+
+### Accessibility Inspector
+
+1. Xcode > Open Developer Tool > Accessibility Inspector
+2. Target your simulator/device
+3. Navigate through UI elements
+4. Verify labels, hints, traits, focus order
+
+### Unit Testing
+
+```swift
+import XCTest
+@testable import YourApp
+
+final class AccessibilityTests: XCTestCase {
+
+    func testButtonHasLabel() {
+        let button = MyButton()
+        let view = button.body
+
+        XCTAssertNotNil(view.accessibilityLabel)
+    }
+}
+```
+
+### UI Testing
+
+```swift
+func testVoiceOverNavigation() {
+    let app = XCUIApplication()
+    app.launch()
+
+    let button = app.buttons["Add Item"]
+    XCTAssertTrue(button.exists)
+    XCTAssertTrue(button.isHittable)
+    XCTAssertEqual(button.label, "Add Item")
+}
+```
+
+> Include audit steps in your CI pipeline when possible.
+
+## 7. Localized Accessibility
+
+```swift
+enum A11y {
+    static let addButton = String(localized: "accessibility.add_button",
+                                   defaultValue: "Add new item")
+    static let deleteHint = String(localized: "accessibility.delete_hint",\n                                    defaultValue: "Double tap to delete")
+
+    static func itemCount(_ count: Int) -> String {
+        String(localized: "accessibility.item_count \(count)",
+               defaultValue: "\(count) items")
+    }
+}
+```
+
+**Usage**:
+
+```swift
+Button(action: { }) {
+    Image(systemName: "plus")
+}
+.accessibilityLabel(A11y.addButton)
+```
+
+## 8. Checklist
+
+### Visual
+- [ ] Text uses semantic fonts (`.body`, `.title`, etc.)
+- [ ] Custom fonts use `relativeTo:` for scaling
+- [ ] Minimum touch target 44×44 points
+- [ ] Color is not the only indicator
+- [ ] Sufficient color contrast (4.5:1 for text)
+
+### VoiceOver
+- [ ] All interactive elements have labels
+- [ ] Decorative images are hidden
+- [ ] Meaningful images have descriptions
+- [ ] Custom controls have appropriate traits
+- [ ] Related content is grouped
+- [ ] Focus order is logical
+
+### Motion
+- [ ] Animations respect Reduce Motion
+- [ ] No auto-playing videos without control
+- [ ] Flashing content is avoided
+
+### Interaction
+- [ ] Full keyboard navigation support
+- [ ] Error states are announced
+
+> Before release, verify dynamic type scaling, contrast in both modes,
+> and localization does not truncate text.
+
+---
 
 # Architectural Principle
 
-Accessibility must be integrated at: - Design phase - Component library
-level - CI validation stage - Code review stage
-
-Accessibility is not a feature --- it's architecture.
+Accessibility must be integrated at every stage: design, component
+library, CI validation, and code review. Accessibility is not a feature —
+it's architecture.

@@ -1,8 +1,11 @@
 # SwiftUI Accessibility Examples
 
 This document collects concrete SwiftUI snippets demonstrating key accessibility patterns from the
-`accessibility-patterns.md` guidance. These samples are suitable for copying into production
-projects and can be used as reference material for audits or training.
+`accessibility-patterns.md` guidance. Since that file now contains a broader
+set of examples alongside its architectural patterns, the two should be
+consulted together. These samples remain suitable for copying into
+production projects and can be used as reference material for audits or
+training.
 
 ---
 

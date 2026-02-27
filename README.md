@@ -42,7 +42,8 @@ Copilot extensions, etc.) using the `skills` CLI.
     skills/
       apple-accessibility-advisor/
         SKILL.md
-        accessibility-patterns.md
+        accessibility-patterns.md      # consolidated patterns + examples
+        swiftui-examples.md           # copy‑paste ready SwiftUI snippets
         testing-strategies.md
         wcag-guidelines.md
 
